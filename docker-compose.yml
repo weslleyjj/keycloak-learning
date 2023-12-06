@@ -1,0 +1,22 @@
+#version: '3.7'
+
+services:
+  postgres:
+    image: 'postgres:14.10-alpine3.18'
+#    volumes:
+#      - ./postgres:/algum-script.sql
+    environment:
+      POSTGRES_PASSWORD: "postgres"
+    ports:
+      - "5432:5432"
+    mem_limit: 100m
+  keycloak:
+    image: 'quay.io/keycloak/keycloak:23.0.1'
+    volumes:
+      - ./keycloak:/keycloak
+    command: start-dev
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
